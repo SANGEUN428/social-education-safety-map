@@ -236,9 +236,14 @@ function openDevice(id){
     descent:"현장 측정 후 입력",load:"제조사 기준 입력"
   };
   document.getElementById("modalTitle").textContent=`${id} 완강기 정보`;
-  document.getElementById("photoText").innerHTML =
-  `<img src="${d.photo}" alt="${id} 완강기 사진"
-  style="width:100%; max-width:400px; border-radius:8px;">`;
+const photoBox = document.querySelector(".photo");
+
+photoBox.innerHTML = `
+  <img
+    src="${d.photo}"
+    alt="${id} 완강기 사진"
+  >
+`;
   document.getElementById("info").innerHTML=`
     <div class="k">설치일자</div><div class="v">${d.install}</div>
     <div class="k">관리일자</div><div class="v">${d.manage}</div>
