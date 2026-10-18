@@ -118,7 +118,7 @@ const floors = {
 
 const deviceInfo = {
   "8F-01": {
-    photo:"8F-01 완강기 실물사진",
+    photo:"./8f-01.jpg",
     install:"2025. 03. 12",
     manage:"2026. 06. 20",
     inspect:"2026. 06. 20",
@@ -126,7 +126,7 @@ const deviceInfo = {
     load:"40 ~ 150 kg"
   },
   "8F-02": {
-    photo:"8F-02 완강기 실물사진",
+    photo:"./8f-02.jpg",
     install:"2025. 03. 12",
     manage:"2026. 06. 20",
     inspect:"2026. 06. 20",
@@ -216,7 +216,9 @@ function openDevice(id){
     descent:"현장 측정 후 입력",load:"제조사 기준 입력"
   };
   document.getElementById("modalTitle").textContent=`${id} 완강기 정보`;
-  document.getElementById("photoText").innerHTML=`${d.photo}<br>→ 실제 사진으로 교체`;
+  document.getElementById("photoText").innerHTML =
+  `<img src="${d.photo}" alt="${id} 완강기 사진"
+  style="width:100%; max-width:400px; border-radius:8px;">`;
   document.getElementById("info").innerHTML=`
     <div class="k">설치일자</div><div class="v">${d.install}</div>
     <div class="k">관리일자</div><div class="v">${d.manage}</div>
