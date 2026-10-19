@@ -258,6 +258,30 @@ document.getElementById("closeModal").onclick=closeModal;
 modal.addEventListener("click",e=>{if(e.target===modal)closeModal()});
 document.addEventListener("keydown",e=>{if(e.key==="Escape")closeModal()});
 showFloor("8");
+
+// 학번 인증
+const authForm = document.getElementById("authForm");
+const studentInput = document.getElementById("studentId");
+const authError = document.getElementById("authError");
+const authScreen = document.getElementById("authScreen");
+const safetyApp = document.getElementById("safetyApp");
+
+authForm.addEventListener("submit", function(e) {
+  e.preventDefault();
+
+  const studentId = studentInput.value;
+
+  if (!/^[0-9]{10}$/.test(studentId)) {
+    authError.textContent =
+      "학번은 숫자 10자리로 입력해야 합니다.";
+    studentInput.focus();
+    return;
+  }
+
+  authError.textContent = "";
+  authScreen.style.display = "none";
+  safetyApp.style.display = "block";
+});
 </script>
 </body>
 </html>
