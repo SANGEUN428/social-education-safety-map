@@ -81,9 +81,48 @@
     .map-title h2{font-size:17px}
   }
 </style>
+
 </head>
 <body>
+
+<div class="auth-screen" id="authScreen">
+  <div class="auth-card">
+    <div class="auth-icon">🔐</div>
+    <p class="auth-school">MYONGJI COLLEGE</p>
+    <h2>사회교육관 안전지도</h2>
+    <p class="auth-desc">
+      안전지도 이용을 위해 학번을 입력해 주세요.
+    </p>
+
+    <form id="authForm">
+      <label for="studentId">10자리 학번</label>
+      <input
+        type="text"
+        id="studentId"
+        inputmode="numeric"
+        pattern="[0-9]{10}"
+        minlength="10"
+        maxlength="10"
+        placeholder="학번 입력"
+        autocomplete="off"
+        required
+      >
+
+      <p id="authError" class="auth-error" role="alert"></p>
+
+      <button type="submit" class="auth-submit">
+        안전지도 확인하기
+      </button>
+    </form>
+
+    <p class="auth-notice">
+      학번 10자리 입력 후 안전지도를 이용할 수 있습니다.
+    </p>
+  </div>
+</div>
+
 <div class="app" id="safetyApp" style="display:none">
+
   <header>
     <div class="eyebrow">MYONGJI COLLEGE · 사회교육관</div>
     <h1>디지털 안전지도</h1>
