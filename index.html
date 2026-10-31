@@ -303,6 +303,26 @@ svg{
   line-height:1.55
 }
 
+/* 유튜브 사용법 바로가기 버튼 - 추가 */
+.youtube-btn{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  width:100%;
+  min-height:48px;
+  margin-top:16px;
+  border-radius:10px;
+  background:#ff0000;
+  color:#fff;
+  text-decoration:none;
+  font-size:15px;
+  font-weight:700;
+}
+
+.youtube-btn:hover{
+  background:#cc0000;
+}
+
 /* 학번 인증 화면 */
 
 .auth-screen{
@@ -517,6 +537,17 @@ svg{
       </div>
 
       <div class="info" id="info"></div>
+
+      <!-- 유튜브 사용법 바로가기 - 추가 -->
+      <a
+        id="youtubeButton"
+        class="youtube-btn"
+        href="https://www.youtube.com/shorts/영상ID"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        ▶ 완강기 사용법 영상 보기
+      </a>
 
       <div class="notice">
         ※ 본 화면은 프로젝트 시제품입니다.
@@ -765,13 +796,13 @@ function room(x,y,w,h,label,sub=""){
       ${label}
     </text>
 
-    ${sub ? 
+    ${sub ? `
       <text class="smalltext"
         x="${x+w/2}"
         y="${y+h/2+17}">
         ${sub}
       </text>
-     : ""}
+    ` : ""}
   `;
 
 }
@@ -840,7 +871,8 @@ function render8(){
 
     <rect class="room"
       x="410" y="82"
-      width="140" height="58">
+      width="140"
+      height="58">
     </rect>
 
     <text class="smalltext"
@@ -1158,7 +1190,7 @@ function showFloor(f){
       )
     );
 
-  title.textContent=사회교육관 ${f}층;
+  title.textContent=`사회교육관 ${f}층`;
 
   map.innerHTML=
     f==="8" ? render8() : renderGeneric(f);
@@ -1200,7 +1232,7 @@ function openDevice(id){
   };
 
   document.getElementById("modalTitle").textContent=
-    ${id} 완강기 정보;
+    `${id} 완강기 정보`;
 
   const photoBox=document.querySelector(".photo");
 
