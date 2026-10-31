@@ -303,6 +303,22 @@ svg{
   line-height:1.55
 }
 
+/* 유튜브 바로가기 버튼 */
+
+.youtube-btn{
+  display:block;
+  width:100%;
+  margin-top:16px;
+  padding:14px;
+  border:0;
+  border-radius:10px;
+  background:#e62117;
+  color:#fff;
+  font-weight:700;
+  font-size:15px;
+  cursor:pointer
+}
+
 /* 학번 인증 화면 */
 
 .auth-screen{
@@ -400,7 +416,8 @@ svg{
   main{padding:14px}
   .map-title h2{font-size:17px}
 }
-  /* PC 모드 */
+
+/* PC 모드 */
 @media (min-width: 768px) {
   /* PC 전용 디자인 */
 }
@@ -517,6 +534,10 @@ svg{
       </div>
 
       <div class="info" id="info"></div>
+
+      <button class="youtube-btn" type="button" onclick="openYoutubeVideo()">
+        ▶ 완강기 사용법 영상 보기
+      </button>
 
       <div class="notice">
         ※ 본 화면은 프로젝트 시제품입니다.
@@ -705,7 +726,25 @@ const deviceInfo = {
 };
 
 /* =================================
-   3. GitHub Pages 이미지 경로 설정
+   3. 유튜브 영상 주소
+   나중에 영상 업로드 후 주소 입력
+================================= */
+
+const YOUTUBE_URL = "";
+
+function openYoutubeVideo(){
+
+  if(!YOUTUBE_URL){
+    alert("완강기 사용법 영상이 아직 등록되지 않았습니다.");
+    return;
+  }
+
+  window.open(YOUTUBE_URL,"_blank","noopener,noreferrer");
+
+}
+
+/* =================================
+   4. GitHub Pages 이미지 경로 설정
 ================================= */
 
 // GitHub Pages에 직접 올라간 이미지 주소 사용
@@ -720,7 +759,7 @@ function getPhotoUrl(filename){
 }
 
 /* =================================
-   4. 화면 요소
+   5. 화면 요소
 ================================= */
 
 const buttons = document.getElementById("floorButtons");
@@ -729,7 +768,7 @@ const title = document.getElementById("floorTitle");
 const modal = document.getElementById("modalBackdrop");
 
 /* =================================
-   5. 층 버튼 생성
+   6. 층 버튼 생성
 ================================= */
 
 for(let f=8; f>=3; f--){
@@ -746,7 +785,7 @@ for(let f=8; f>=3; f--){
 }
 
 /* =================================
-   6. 공간 생성 함수
+   7. 공간 생성 함수
 ================================= */
 
 function room(x,y,w,h,label,sub=""){
@@ -777,7 +816,7 @@ function room(x,y,w,h,label,sub=""){
 }
 
 /* =================================
-   7. 완강기 버튼 생성
+   8. 완강기 버튼 생성
 ================================= */
 
 function device(id,x,y){
@@ -807,7 +846,7 @@ function device(id,x,y){
 }
 
 /* =================================
-   8. 8층 도면
+   9. 8층 도면
 ================================= */
 
 function render8(){
@@ -840,7 +879,8 @@ function render8(){
 
     <rect class="room"
       x="410" y="82"
-      width="140" height="58">
+      width="140"
+      height="58">
     </rect>
 
     <text class="smalltext"
@@ -877,7 +917,7 @@ function render8(){
 }
 
 /* =================================
-   9. 나머지 층 도면
+   10. 나머지 층 도면
 ================================= */
 
 function renderGeneric(f){
@@ -1145,7 +1185,7 @@ function renderGeneric(f){
 }
 
 /* =================================
-   10. 층 변경
+   11. 층 변경
 ================================= */
 
 function showFloor(f){
@@ -1183,7 +1223,7 @@ function showFloor(f){
 }
 
 /* =================================
-   11. 완강기 상세정보 및 사진 출력
+   12. 완강기 상세정보 및 사진 출력
 ================================= */
 
 function openDevice(id){
@@ -1247,7 +1287,7 @@ function openDevice(id){
 }
 
 /* =================================
-   12. 모달 닫기
+   13. 모달 닫기
 ================================= */
 
 function closeModal(){
@@ -1277,13 +1317,13 @@ document.addEventListener("keydown",e=>{
 });
 
 /* =================================
-   13. 초기 화면
+   14. 초기 화면
 ================================= */
 
 showFloor("8");
 
 /* =================================
-   14. 학번 인증
+   15. 학번 인증
 ================================= */
 
 const authForm=document.getElementById("authForm");
