@@ -251,11 +251,11 @@
 
 <script>
 const floors = {
-  "3": {devices:[["3F-01",220,150]], rooms:["강의실","사무실","복도"]},
-  "4": {devices:[["4F-01",220,150],["4F-02",700,150]], rooms:["강의실","실습실","복도"]},
-  "5": {devices:[["5F-01",220,150],["5F-02",700,150]], rooms:["강의실","교수실","복도"]},
-  "6": {devices:[["6F-01",220,150],["6F-02",700,150]], rooms:["강의실","실습실","복도"]},
-  "7": {devices:[["7F-01",220,150],["7F-02",700,150]], rooms:["강의실","연구실","복도"]},
+  "3": {devices:[["3F-01",85,185],["3F-02",875,185]], rooms:["강의실","사무실","복도"]},
+  "4": {devices:[["4F-01",85,185]], rooms:["강의실","실습실","복도"]},
+  "5": {devices:[["5F-01",85,185],["5F-02",875,185]], rooms:["강의실","교수실","복도"]},
+  "6": {devices:[["6F-01",85,185],["6F-02",875,185]], rooms:["강의실","실습실","복도"]},
+  "7": {devices:[["7F-01",85,185],["7F-02",875,185]], rooms:["강의실","연구실","복도"]},
   "8": {devices:[
     ["8F-01",85,185],
     ["8F-02",875,185]
@@ -311,37 +311,131 @@ function device(id,x,y){
 function render8(){
   return `<svg viewBox="0 0 960 520" xmlns="http://www.w3.org/2000/svg">
     <rect x="20" y="20" width="920" height="480" fill="#fff" stroke="#111827" stroke-width="3"/>
-    ${room(35,35,200,120,"e-강의실 806")}
-    ${room(235,35,200,120,"e-강의실 807")}
-    ${room(435,35,200,120,"e-강의실 808")}
-    ${room(635,35,270,120,"드론조종실내실습실 809")}
-    <rect class="corridor" x="35" y="155" width="870" height="85"/>
-    <text class="roomtext" x="470" y="205">중앙 복도</text>
-    ${room(35,240,155,225,"계단실")}
-    ${room(190,240,145,225,"학과사무실 805")}
-    ${room(335,240,155,225,"미래융합학부 804")}
-    ${room(490,240,170,225,"드론기자재실 803")}
-    ${room(660,240,245,225,"드론제작장비실습실 802")}
-    <text class="smalltext" x="782" y="485">※ 실제 CAD 도면으로 교체</text>
+
+    ${room(35,35,116,105,"e-강의실","806")}
+    ${room(151,35,117,105,"e-강의실","807")}
+    ${room(268,35,117,105,"e-강의실","808")}
+
+    <rect class="room" x="385" y="35" width="190" height="105"></rect>
+    <text class="smalltext" x="480" y="72">화장실</text>
+    <rect class="room" x="410" y="82" width="140" height="58"></rect>
+    <text class="smalltext" x="480" y="116">승강기 · 계단실</text>
+
+    ${room(575,35,330,105,"드론조종실내실습실","809")}
+
+    <rect class="corridor" x="35" y="140" width="870" height="80"/>
+    <text class="roomtext" x="470" y="185">중앙 복도</text>
+
+    ${room(35,220,145,245,"계단실")}
+    ${room(180,220,115,245,"학과사무실","805")}
+    ${room(295,220,115,245,"미래융합학부 교무부","804")}
+    ${room(410,220,115,245,"드론기자재실","803")}
+    ${room(525,220,190,245,"드론제작장비실습실","802")}
+    ${room(715,220,190,245,"공간정보융합실습실","801")}
     ${device("8F-01",85,185)}
     ${device("8F-02",875,185)}
   </svg>`;
 }
 
 function renderGeneric(f){
-  const d=floors[f];
+  const upperLeft = {
+    "3":["304","305","306"],
+    "4":["405","406","407"],
+    "5":["513","514","515"],
+    "6":["609","610","611"],
+    "7":["709","710","711"]
+  }[f];
+  const upperRight = {
+    "3":["307"],
+    "4":["408","409"],
+    "5":["516","517"],
+    "6":["612","613"],
+    "7":["712","713"]
+  }[f];
+  const lower = {
+    "3":["303","302","301"],
+    "4":["404","403","402","401"],
+    "5":["512","511","510","509","508","507","506","505","504","503","502","501"],
+    "6":["608","607","606","605","604","603","602","601"],
+    "7":["708","707","706","705","704","703","702","701"]
+  }[f];
+
+  function renderUpperLeft(items, x, y, totalWidth, height) {
+    let ratios = items.map(() => 1);
+    if (f === "4") ratios = [1.8, 1, 1.2];
+    else if (f === "5") ratios = [2.2, 1.2, 1];
+    else if (f === "6" || f === "7") ratios = [2, 1.3, 0.9];
+
+    const sumRatios = ratios.reduce((a, b) => a + b, 0);
+    let currX = x;
+    return items.map((label, i) => {
+      const w = totalWidth * (ratios[i] / sumRatios);
+      const rx = currX;
+      currX += w;
+      return `<rect class="room" x="${rx}" y="${y}" width="${w}" height="${height}"></rect>
+        <text class="roomtext" style="font-size:13px" x="${rx + w/2}" y="${y + height/2 + 5}">${label}</text>`;
+    }).join("");
+  }
+
+  function renderUpperRight(items, x, y, totalWidth, height) {
+    let ratios = items.map(() => 1);
+    if (f === "4" || f === "5") ratios = [1, 1.1];
+    else if (f === "6" || f === "7") ratios = [0.8, 2.2];
+
+    const sumRatios = ratios.reduce((a, b) => a + b, 0);
+    let currX = x;
+    return items.map((label, i) => {
+      const w = totalWidth * (ratios[i] / sumRatios);
+      const rx = currX;
+      currX += w;
+      return `<rect class="room" x="${rx}" y="${y}" width="${w}" height="${height}"></rect>
+        <text class="roomtext" style="font-size:13px" x="${rx + w/2}" y="${y + height/2 + 5}">${label}</text>`;
+    }).join("");
+  }
+
+  function row(items, x, y, totalWidth, height, minFont=12){
+    if (f === "6" || f === "7") {
+      const smallWidth = 42;
+      const smallCount = items.length - 2;
+      const largeWidth = (totalWidth - (smallCount * smallWidth)) / 2;
+
+      let currentX = x;
+      return items.map((label, i) => {
+        const isLarge = (i >= items.length - 2);
+        const w = isLarge ? largeWidth : smallWidth;
+        const rx = currentX;
+        currentX += w;
+        return `<rect class="room" x="${rx}" y="${y}" width="${w}" height="${height}"></rect>
+          <text class="roomtext" style="font-size:12px" x="${rx + w/2}" y="${y + height/2 + 5}">${label}</text>`;
+      }).join("");
+    }
+
+    const width = totalWidth / items.length;
+    return items.map((label,i)=>{
+      const font = items.length > 8 ? minFont : 14;
+      return `<rect class="room" x="${x+i*width}" y="${y}" width="${width}" height="${height}"></rect>
+        <text class="roomtext" style="font-size:${font}px" x="${x+(i+.5)*width}" y="${y+height/2+5}">${label}</text>`;
+    }).join("");
+  }
+
   return `<svg viewBox="0 0 960 520" xmlns="http://www.w3.org/2000/svg">
     <rect x="20" y="20" width="920" height="480" fill="#fff" stroke="#111827" stroke-width="3"/>
-    ${room(35,35,270,180, d.rooms[0])}
-    ${room(305,35,300,180,d.rooms[1])}
-    ${room(605,35,300,180,d.rooms[2])}
-    <rect class="corridor" x="35" y="215" width="870" height="80"/>
-    <text class="roomtext" x="470" y="262">중앙 복도</text>
-    ${room(35,295,220,170,"계단실")}
-    ${room(255,295,300,170,"실습실")}
-    ${room(555,295,350,170,"강의실")}
-    ${d.devices.map(v=>device(v[0],v[1],v[2])).join("")}
-    <text class="smalltext" x="782" y="490">※ 실제 CAD 도면으로 교체</text>
+
+    ${renderUpperLeft(upperLeft,35,35,350,105)}
+    ${renderUpperRight(upperRight,575,35,330,105)}
+
+    <rect class="room" x="385" y="35" width="190" height="105"></rect>
+    <text class="smalltext" x="480" y="72">화장실</text>
+    <rect class="room" x="410" y="82" width="140" height="58"></rect>
+    <text class="smalltext" x="480" y="116">승강기 · 계단실</text>
+
+    <rect class="corridor" x="35" y="140" width="870" height="80"/>
+    <text class="roomtext" x="470" y="185">중앙 복도</text>
+
+    <rect class="room" x="35" y="220" width="350" height="245"></rect>
+    <text class="roomtext" x="210" y="345">계단실</text>
+    ${row(lower,385,220,520,245,11)}
+    ${floors[f].devices.map(v=>device(v[0],v[1],v[2])).join("")}
   </svg>`;
 }
 
