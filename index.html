@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="ko">
 <head>
-<meta charset="UTF-8">
+<meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>사회교육관 디지털 안전지도</title>
 
@@ -66,13 +66,14 @@ h1{
 
 .floor-btn{
   width:100%;
+  border:0;
+  background:#fff;
   border:1px solid #dce2e8;
   border-radius:12px;
   padding:11px 6px;
   margin-bottom:9px;
   font-weight:700;
   color:#334155;
-  background:#fff;
   cursor:pointer
 }
 
@@ -96,11 +97,6 @@ main{padding:20px}
 .map-title h2{
   margin:0;
   font-size:20px
-}
-
-.map-title span{
-  font-size:12px;
-  color:#64748b
 }
 
 .map-card{
@@ -181,26 +177,10 @@ svg{
   font-size:13px
 }
 
-.legend{
-  display:flex;
-  gap:14px;
-  align-items:center;
-  flex-wrap:wrap;
-  margin-top:12px;
-  font-size:12px;
+.empty{
+  padding:50px 20px;
+  text-align:center;
   color:#64748b
-}
-
-.legend-dot{
-  width:18px;
-  height:18px;
-  border-radius:50%;
-  background:#1769e8;
-  display:inline-block;
-  vertical-align:middle;
-  margin-right:5px;
-  border:2px solid #fff;
-  box-shadow:0 1px 4px #0003
 }
 
 .modal-backdrop{
@@ -303,7 +283,36 @@ svg{
   line-height:1.55
 }
 
-/* 학번 인증 화면 */
+/* 유튜브 영상 바로가기 버튼 */
+.youtube-btn{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  width:100%;
+  min-height:48px;
+  margin-top:16px;
+  border-radius:10px;
+  background:#ff0000;
+  color:#fff;
+  text-decoration:none;
+  font-size:15px;
+  font-weight:700;
+  transition:background .2s
+}
+
+.youtube-btn:hover{
+  background:#cc0000
+}
+
+@media(max-width:650px){
+  header{padding:18px 16px}
+  h1{font-size:20px}
+  .content{grid-template-columns:76px 1fr}
+  .floors{padding:12px 7px}
+  .floor-btn{padding:10px 3px;font-size:13px}
+  main{padding:14px}
+  .map-title h2{font-size:17px}
+}
 
 .auth-screen{
   min-height:100vh;
@@ -390,49 +399,22 @@ svg{
   font-size:11px;
   margin-top:18px
 }
-
-@media(max-width:650px){
-  header{padding:18px 16px}
-  h1{font-size:20px}
-  .content{grid-template-columns:76px 1fr}
-  .floors{padding:12px 7px}
-  .floor-btn{padding:10px 3px;font-size:13px}
-  main{padding:14px}
-  .map-title h2{font-size:17px}
-}
-  /* PC 모드 */
-@media (min-width: 768px) {
-  /* PC 전용 디자인 */
-}
-
-/* 모바일 모드 */
-@media (max-width: 767px) {
-  /* 모바일 전용 디자인 */
-}
 </style>
 </head>
 
 <body>
 
-<!-- 학번 인증 -->
-
 <div class="auth-screen" id="authScreen">
   <div class="auth-card">
-
     <div class="auth-icon">🔐</div>
-
     <p class="auth-school">MYONGJI COLLEGE</p>
-
     <h2>사회교육관 안전지도</h2>
-
     <p class="auth-desc">
       안전지도 이용을 위해 학번을 입력해 주세요.
     </p>
 
     <form id="authForm">
-
       <label for="studentId">10자리 학번</label>
-
       <input
         type="text"
         id="studentId"
@@ -450,62 +432,42 @@ svg{
       <button type="submit" class="auth-submit">
         안전지도 확인하기
       </button>
-
     </form>
 
     <p class="auth-notice">
       학번 10자리 입력 후 안전지도를 이용할 수 있습니다.
     </p>
-
   </div>
 </div>
-
-
-<!-- 메인 안전지도 -->
 
 <div class="app" id="safetyApp" style="display:none">
 
   <header>
     <div class="eyebrow">MYONGJI COLLEGE · 사회교육관</div>
     <h1>디지털 안전지도</h1>
-    <div class="sub">
-      층을 선택한 뒤 파란색 완강기 버튼을 눌러 상세정보를 확인하세요.
-    </div>
+    <div class="sub">층을 선택한 뒤 파란색 완강기 버튼을 눌러 상세정보를 확인하세요.</div>
   </header>
 
   <div class="content">
-
     <aside class="floors">
       <h2>층 선택</h2>
       <div id="floorButtons"></div>
     </aside>
 
     <main>
-
       <div class="map-title">
         <h2 id="floorTitle">사회교육관 8층</h2>
       </div>
 
       <div class="map-card">
-
         <div class="map-wrap" id="map"></div>
-
-        <div class="hint">
-          🔵 파란색 버튼 = 완강기 · 버튼을 누르면 설치·관리·점검 정보를 확인할 수 있습니다.
-        </div>
-
+        <div class="hint">🔵 파란색 버튼 = 완강기 · 버튼을 누르면 설치·관리·점검 정보를 확인할 수 있습니다.</div>
       </div>
-
-
     </main>
   </div>
 </div>
 
-
-<!-- 완강기 상세정보 모달 -->
-
 <div class="modal-backdrop" id="modalBackdrop" aria-hidden="true">
-
   <section class="modal" role="dialog" aria-modal="true">
 
     <div class="modal-top">
@@ -514,69 +476,67 @@ svg{
     </div>
 
     <div class="modal-body">
-
       <div class="photo">
-        <b id="photoText">실물 사진 영역</b>
+        <b id="photoText">완강기 실물 사진</b>
       </div>
 
       <div class="info" id="info"></div>
 
+      <!-- 유튜브 영상 바로가기 -->
+      <a
+        id="youtubeButton"
+        class="youtube-btn"
+        href="#"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        ▶ 완강기 사용법 영상 보기
+      </a>
+
       <div class="notice">
-        ※ 본 화면은 프로젝트 시제품입니다.
-        실제 설치일자·점검일자·하강시간·적정하중은
-        현장 확인 및 제조사/관리기록을 기준으로 입력하세요.
+        ※ 본 화면은 프로젝트 시제품입니다. 실제 설치일자·점검일자·하강시간·적정하중은 현장 확인 및 제조사/관리기록을 기준으로 입력하세요.
       </div>
-
     </div>
-
   </section>
 </div>
 
-
 <script>
 
-/* =================================
-   1. 층별 데이터
-================================= */
+/* 유튜브 쇼츠 주소 */
+const YOUTUBE_URL = "https://www.youtube.com/shorts/영상ID";
 
+/* 이미지 주소 */
+const PAGE_IMAGE_BASE =
+  "https://sangeun428.github.io/social-education-safety-map/";
+
+function getPhotoUrl(filename){
+  return PAGE_IMAGE_BASE + encodeURIComponent(filename);
+}
+
+/* 층별 데이터 */
 const floors = {
-
   "3": {
-    devices:[
-      ["3F-01",85,185],
-      ["3F-02",875,185]
-    ],
+    devices:[["3F-01",220,150]],
     rooms:["강의실","사무실","복도"]
   },
 
   "4": {
-    devices:[
-      ["4F-01",85,185]
-    ],
+    devices:[["4F-01",220,150],["4F-02",700,150]],
     rooms:["강의실","실습실","복도"]
   },
 
   "5": {
-    devices:[
-      ["5F-01",85,185],
-      ["5F-02",875,185]
-    ],
+    devices:[["5F-01",220,150],["5F-02",700,150]],
     rooms:["강의실","교수실","복도"]
   },
 
   "6": {
-    devices:[
-      ["6F-01",85,185],
-      ["6F-02",875,185]
-    ],
+    devices:[["6F-01",220,150],["6F-02",700,150]],
     rooms:["강의실","실습실","복도"]
   },
 
   "7": {
-    devices:[
-      ["7F-01",85,185],
-      ["7F-02",875,185]
-    ],
+    devices:[["7F-01",220,150],["7F-02",700,150]],
     rooms:["강의실","연구실","복도"]
   },
 
@@ -597,105 +557,18 @@ const floors = {
       "공간정보융합실습실 801"
     ]
   }
-
 };
 
-
-/* =================================
-   2. 완강기 상세정보
-   사진은 파일명만 입력
-================================= */
-
+/* 완강기 상세정보 */
 const deviceInfo = {
-
-  "3F-01": {
-    photo:"3f-01.jpg",
-    install:"2025. 03. 12",
-    manage:"2026. 06. 20",
-    inspect:"2026. 06. 20",
-    descent:"약 17초 (70k 기준)",
-    load:"~ 100 kg"
-  },
-
-  "3F-02": {
-    photo:"3f-02.jpg",
-    install:"2025. 03. 12",
-    manage:"2026. 06. 20",
-    inspect:"2026. 06. 20",
-    descent:"약 17초 (70k 기준)",
-    load:"~ 100 kg"
-  },
-
-  "4F-01": {
-    photo:"4f-01.jpg",
-    install:"2025. 03. 12",
-    manage:"2026. 06. 20",
-    inspect:"2026. 06. 20",
-    descent:"약 20초 (70k 기준)",
-    load:"~ 100 kg"
-  },
-
-  "5F-01": {
-    photo:"5f-01.jpg",
-    install:"2025. 03. 12",
-    manage:"2026. 06. 20",
-    inspect:"2026. 06. 20",
-    descent:"약 23초 (70k 기준)",
-    load:"~ 100 kg"
-  },
-
-  "5F-02": {
-    photo:"5f-02.jpg",
-    install:"2025. 03. 12",
-    manage:"2026. 06. 20",
-    inspect:"2026. 06. 20",
-    descent:"약 23초 (70k 기준)",
-    load:"~ 100 kg"
-  },
-
-  "6F-01": {
-    photo:"6f-01.jpg",
-    install:"2025. 03. 12",
-    manage:"2026. 06. 20",
-    inspect:"2026. 06. 20",
-    descent:"약 26 (70k 기준)",
-    load:"~ 100 kg"
-  },
-
-  "6F-02": {
-    photo:"6f-02.jpg",
-    install:"2025. 03. 12",
-    manage:"2026. 06. 20",
-    inspect:"2026. 06. 20",
-    descent:"약 26초 (70k 기준)",
-    load:"~ 100 kg"
-  },
-
-  "7F-01": {
-    photo:"7f-01.jpg",
-    install:"2025. 03. 12",
-    manage:"2026. 06. 20",
-    inspect:"2026. 06. 20",
-    descent:"약 29초 (70k 기준)",
-    load:"~ 100 kg"
-  },
-
-  "7F-02": {
-    photo:"7f-02.jpg",
-    install:"2025. 03. 12",
-    manage:"2026. 06. 20",
-    inspect:"2026. 06. 20",
-    descent:"약 29초 (70k 기준)",
-    load:"~ 100 kg"
-  },
 
   "8F-01": {
     photo:"8f-01.jpg",
     install:"2025. 03. 12",
     manage:"2026. 06. 20",
     inspect:"2026. 06. 20",
-    descent:"약 32초 (70kg 기준)",
-    load:"~ 100 kg"
+    descent:"약 38초",
+    load:"40 ~ 150 kg"
   },
 
   "8F-02": {
@@ -706,479 +579,106 @@ const deviceInfo = {
     descent:"약 32초 (70kg 기준)",
     load:"~ 100 kg"
   }
-
 };
-
-
-/* =================================
-   3. GitHub Pages 이미지 경로 설정
-================================= */
-
-// GitHub Pages에 직접 올라간 이미지 주소 사용
-const PAGE_IMAGE_BASE =
-  "https://sangeun428.github.io/social-education-safety-map/";
-
-// 이미지 주소 생성
-function getPhotoUrl(filename){
-
-  return PAGE_IMAGE_BASE + encodeURIComponent(filename);
-
-}
-
-
-/* =================================
-   4. 화면 요소
-================================= */
 
 const buttons = document.getElementById("floorButtons");
 const map = document.getElementById("map");
 const title = document.getElementById("floorTitle");
 const modal = document.getElementById("modalBackdrop");
 
-
-/* =================================
-   5. 층 버튼 생성
-================================= */
-
+/* 층 선택 버튼 생성 */
 for(let f=8; f>=3; f--){
-
   const b=document.createElement("button");
-
   b.className="floor-btn";
   b.textContent=f+"층";
-
   b.onclick=()=>showFloor(String(f));
-
   buttons.appendChild(b);
-
 }
 
-
-/* =================================
-   6. 공간 생성 함수
-================================= */
-
+/* 교실 생성 */
 function room(x,y,w,h,label,sub=""){
-
   return `
-    <rect class="room"
-      x="${x}"
-      y="${y}"
-      width="${w}"
-      height="${h}">
-    </rect>
-
-    <text class="roomtext"
-      x="${x+w/2}"
-      y="${y+h/2-4}">
-      ${label}
-    </text>
-
-    ${sub ? `
-      <text class="smalltext"
-        x="${x+w/2}"
-        y="${y+h/2+17}">
-        ${sub}
-      </text>
-    ` : ""}
+    <rect class="room" x="${x}" y="${y}" width="${w}" height="${h}"></rect>
+    <text class="roomtext" x="${x+w/2}" y="${y+h/2-4}">${label}</text>
+    ${sub?`<text class="smalltext" x="${x+w/2}" y="${y+h/2+17}">${sub}</text>`:""}
   `;
-
 }
 
-
-/* =================================
-   7. 완강기 버튼 생성
-================================= */
-
+/* 완강기 버튼 생성 */
 function device(id,x,y){
-
   return `
-    <g class="device"
-      data-device="${id}"
-      tabindex="0"
-      role="button"
-      aria-label="${id} 완강기">
-
+    <g class="device" data-device="${id}" tabindex="0" role="button" aria-label="${id} 완강기">
       <circle cx="${x}" cy="${y}" r="25"></circle>
-
-      <text x="${x}" y="${y}">
-        완강
-      </text>
-
-      <text class="device-label"
-        x="${x}"
-        y="${y+45}">
-        ${id}
-      </text>
-
+      <text x="${x}" y="${y}">완강</text>
+      <text class="device-label" x="${x}" y="${y+45}">${id}</text>
     </g>
   `;
-
 }
 
-
-/* =================================
-   8. 8층 도면
-================================= */
-
+/* 8층 지도 */
 function render8(){
-
   return `
+  <svg viewBox="0 0 960 520" xmlns="http://www.w3.org/2000/svg">
 
-  <svg viewBox="0 0 960 520"
-    xmlns="http://www.w3.org/2000/svg">
+    <rect x="20" y="20" width="920" height="480" fill="#fff" stroke="#111827" stroke-width="3"/>
 
-    <rect x="20" y="20"
-      width="920"
-      height="480"
-      fill="#fff"
-      stroke="#111827"
-      stroke-width="3"/>
+    ${room(35,35,200,120,"e-강의실 806")}
+    ${room(235,35,200,120,"e-강의실 807")}
+    ${room(435,35,200,120,"e-강의실 808")}
+    ${room(635,35,270,120,"드론조종실내실습실 809")}
 
-    ${room(35,35,116,105,"e-강의실","806")}
-    ${room(151,35,117,105,"e-강의실","807")}
-    ${room(268,35,117,105,"e-강의실","808")}
+    <rect class="corridor" x="35" y="155" width="870" height="85"/>
+    <text class="roomtext" x="470" y="205">중앙 복도</text>
 
-    <rect class="room"
-      x="385" y="35"
-      width="190" height="105">
-    </rect>
-
-    <text class="smalltext"
-      x="480" y="72">
-      화장실
-    </text>
-
-    <rect class="room"
-      x="410" y="82"
-      width="140" height="58">
-    </rect>
-
-    <text class="smalltext"
-      x="480" y="116">
-      승강기 · 계단실
-    </text>
-
-    ${room(575,35,330,105,"드론조종실내실습실","809")}
-
-    <rect class="corridor"
-      x="35" y="140"
-      width="870" height="80">
-    </rect>
-
-    <text class="roomtext"
-      x="470" y="185">
-      중앙 복도
-    </text>
-
-    ${room(35,220,145,245,"계단실")}
-    ${room(180,220,115,245,"학과사무실","805")}
-    ${room(295,220,115,245,"미래융합학부 교무부","804")}
-    ${room(410,220,115,245,"드론기자재실","803")}
-    ${room(525,220,190,245,"드론제작장비실습실","802")}
-    ${room(715,220,190,245,"공간정보융합실습실","801")}
+    ${room(35,240,155,225,"계단실")}
+    ${room(190,240,145,225,"학과사무실 805")}
+    ${room(335,240,155,225,"미래융합학부 804")}
+    ${room(490,240,170,225,"드론기자재실 803")}
+    ${room(660,240,245,225,"드론제작장비실습실 802")}
 
     ${device("8F-01",85,185)}
     ${device("8F-02",875,185)}
 
   </svg>
-
   `;
-
 }
 
-
-/* =================================
-   9. 나머지 층 도면
-================================= */
-
+/* 나머지 층 지도 */
 function renderGeneric(f){
-
-  const upperLeft = {
-
-    "3":["304","305","306"],
-    "4":["405","406","407"],
-    "5":["513","514","515"],
-    "6":["609","610","611"],
-    "7":["709","710","711"]
-
-  }[f];
-
-  const upperRight = {
-
-    "3":["307"],
-    "4":["408","409"],
-    "5":["516","517"],
-    "6":["612","613"],
-    "7":["712","713"]
-
-  }[f];
-
-  const lower = {
-
-    "3":["303","302","301"],
-
-    "4":["404","403","402","401"],
-
-    "5":[
-      "512","511","510","509","508","507",
-      "506","505","504","503","502","501"
-    ],
-
-    "6":[
-      "608","607","606","605","604","603","602","601"
-    ],
-
-    "7":[
-      "708","707","706","705","704","703","702","701"
-    ]
-
-  }[f];
-
-
-  function renderUpperLeft(items,x,y,totalWidth,height){
-
-    let ratios=items.map(()=>1);
-
-    if(f==="4") ratios=[1.8,1,1.2];
-    else if(f==="5") ratios=[2.2,1.2,1];
-    else if(f==="6" || f==="7") ratios=[2,1.3,0.9];
-
-    const sumRatios=ratios.reduce((a,b)=>a+b,0);
-
-    let currX=x;
-
-    return items.map((label,i)=>{
-
-      const w=totalWidth*(ratios[i]/sumRatios);
-      const rx=currX;
-
-      currX+=w;
-
-      return `
-
-        <rect class="room"
-          x="${rx}"
-          y="${y}"
-          width="${w}"
-          height="${height}">
-        </rect>
-
-        <text class="roomtext"
-          style="font-size:13px"
-          x="${rx+w/2}"
-          y="${y+height/2+5}">
-          ${label}
-        </text>
-
-      `;
-
-    }).join("");
-
-  }
-
-
-  function renderUpperRight(items,x,y,totalWidth,height){
-
-    let ratios=items.map(()=>1);
-
-    if(f==="4" || f==="5") ratios=[1,1.1];
-    else if(f==="6" || f==="7") ratios=[0.8,2.2];
-
-    const sumRatios=ratios.reduce((a,b)=>a+b,0);
-
-    let currX=x;
-
-    return items.map((label,i)=>{
-
-      const w=totalWidth*(ratios[i]/sumRatios);
-      const rx=currX;
-
-      currX+=w;
-
-      return `
-
-        <rect class="room"
-          x="${rx}"
-          y="${y}"
-          width="${w}"
-          height="${height}">
-        </rect>
-
-        <text class="roomtext"
-          style="font-size:13px"
-          x="${rx+w/2}"
-          y="${y+height/2+5}">
-          ${label}
-        </text>
-
-      `;
-
-    }).join("");
-
-  }
-
-
-  function row(items,x,y,totalWidth,height,minFont=12){
-
-    if(f==="6" || f==="7"){
-
-      const smallWidth=42;
-      const smallCount=items.length-2;
-
-      const largeWidth=
-        (totalWidth-(smallCount*smallWidth))/2;
-
-      let currentX=x;
-
-      return items.map((label,i)=>{
-
-        const isLarge=i>=items.length-2;
-        const w=isLarge?largeWidth:smallWidth;
-        const rx=currentX;
-
-        currentX+=w;
-
-        return `
-
-          <rect class="room"
-            x="${rx}"
-            y="${y}"
-            width="${w}"
-            height="${height}">
-          </rect>
-
-          <text class="roomtext"
-            style="font-size:12px"
-            x="${rx+w/2}"
-            y="${y+height/2+5}">
-            ${label}
-          </text>
-
-        `;
-
-      }).join("");
-
-    }
-
-    const width=totalWidth/items.length;
-
-    return items.map((label,i)=>{
-
-      const font=items.length>8?minFont:14;
-
-      return `
-
-        <rect class="room"
-          x="${x+i*width}"
-          y="${y}"
-          width="${width}"
-          height="${height}">
-        </rect>
-
-        <text class="roomtext"
-          style="font-size:${font}px"
-          x="${x+(i+.5)*width}"
-          y="${y+height/2+5}">
-          ${label}
-        </text>
-
-      `;
-
-    }).join("");
-
-  }
-
+  const d=floors[f];
 
   return `
+  <svg viewBox="0 0 960 520" xmlns="http://www.w3.org/2000/svg">
 
-  <svg viewBox="0 0 960 520"
-    xmlns="http://www.w3.org/2000/svg">
+    <rect x="20" y="20" width="920" height="480" fill="#fff" stroke="#111827" stroke-width="3"/>
 
-    <rect x="20" y="20"
-      width="920"
-      height="480"
-      fill="#fff"
-      stroke="#111827"
-      stroke-width="3"/>
+    ${room(35,35,270,180,d.rooms[0])}
+    ${room(305,35,300,180,d.rooms[1])}
+    ${room(605,35,300,180,d.rooms[2])}
 
-    ${renderUpperLeft(upperLeft,35,35,350,105)}
+    <rect class="corridor" x="35" y="215" width="870" height="80"/>
+    <text class="roomtext" x="470" y="262">중앙 복도</text>
 
-    ${renderUpperRight(upperRight,575,35,330,105)}
+    ${room(35,295,220,170,"계단실")}
+    ${room(255,295,300,170,"실습실")}
+    ${room(555,295,350,170,"강의실")}
 
-    <rect class="room"
-      x="385" y="35"
-      width="190" height="105">
-    </rect>
-
-    <text class="smalltext"
-      x="480" y="72">
-      화장실
-    </text>
-
-    <rect class="room"
-      x="410" y="82"
-      width="140"
-      height="58">
-    </rect>
-
-    <text class="smalltext"
-      x="480" y="116">
-      승강기 · 계단실
-    </text>
-
-    <rect class="corridor"
-      x="35" y="140"
-      width="870" height="80">
-    </rect>
-
-    <text class="roomtext"
-      x="470" y="185">
-      중앙 복도
-    </text>
-
-    <rect class="room"
-      x="35" y="220"
-      width="350"
-      height="245">
-    </rect>
-
-    <text class="roomtext"
-      x="210" y="345">
-      계단실
-    </text>
-
-    ${row(lower,385,220,520,245,11)}
-
-    ${floors[f].devices.map(v=>
-      device(v[0],v[1],v[2])
-    ).join("")}
+    ${d.devices.map(v=>device(v[0],v[1],v[2])).join("")}
 
   </svg>
-
   `;
-
 }
 
-
-/* =================================
-   10. 층 변경
-================================= */
-
+/* 층 표시 */
 function showFloor(f){
 
-  document.querySelectorAll(".floor-btn")
-    .forEach(b=>
-      b.classList.toggle(
-        "active",
-        b.textContent===f+"층"
-      )
-    );
+  document.querySelectorAll(".floor-btn").forEach(b=>{
+    b.classList.toggle("active",b.textContent===f+"층");
+  });
 
   title.textContent=`사회교육관 ${f}층`;
 
-  map.innerHTML=
-    f==="8" ? render8() : renderGeneric(f);
+  map.innerHTML=f==="8" ? render8() : renderGeneric(f);
 
   map.querySelectorAll(".device").forEach(el=>{
 
@@ -1187,61 +687,39 @@ function showFloor(f){
     });
 
     el.addEventListener("keydown",e=>{
-
       if(e.key==="Enter" || e.key===" "){
         e.preventDefault();
         openDevice(el.dataset.device);
       }
-
     });
 
   });
-
 }
 
-
-/* =================================
-   11. 완강기 상세정보 및 사진 출력
-================================= */
-
+/* 완강기 상세정보 열기 */
 function openDevice(id){
 
   const d=deviceInfo[id] || {
-
     photo:"",
     install:"확인 필요",
     manage:"확인 필요",
     inspect:"확인 필요",
     descent:"현장 측정 후 입력",
     load:"제조사 기준 입력"
-
   };
 
-  document.getElementById("modalTitle").textContent=
-    `${id} 완강기 정보`;
+  document.getElementById("modalTitle").textContent=`${id} 완강기 정보`;
 
   const photoBox=document.querySelector(".photo");
 
-  // GitHub Pages에 직접 올라간 이미지 주소 사용
-  const photoUrl=getPhotoUrl(d.photo);
-
   photoBox.innerHTML=`
-
     <img
-      src="${photoUrl}"
+      src="${getPhotoUrl(d.photo)}"
       alt="${id} 완강기 사진"
-      loading="eager"
-      onerror="
-        this.style.display='none';
-        this.parentElement.innerHTML=
-        '<b>사진을 불러오지 못했습니다.<br>GitHub Pages 이미지 경로를 확인해 주세요.</b>';
-      "
     >
-
   `;
 
   document.getElementById("info").innerHTML=`
-
     <div class="k">설치일자</div>
     <div class="v">${d.install}</div>
 
@@ -1256,67 +734,40 @@ function openDevice(id){
 
     <div class="k">적정하중</div>
     <div class="v">${d.load}</div>
-
   `;
+
+  /* 유튜브 영상 주소 연결 */
+  document.getElementById("youtubeButton").href=YOUTUBE_URL;
 
   modal.classList.add("show");
   modal.setAttribute("aria-hidden","false");
-
 }
 
-
-/* =================================
-   12. 모달 닫기
-================================= */
-
+/* 모달 닫기 */
 function closeModal(){
-
   modal.classList.remove("show");
-
   modal.setAttribute("aria-hidden","true");
-
 }
 
 document.getElementById("closeModal").onclick=closeModal;
 
 modal.addEventListener("click",e=>{
-
-  if(e.target===modal){
-    closeModal();
-  }
-
+  if(e.target===modal) closeModal();
 });
 
 document.addEventListener("keydown",e=>{
-
-  if(e.key==="Escape"){
-    closeModal();
-  }
-
+  if(e.key==="Escape") closeModal();
 });
 
-
-/* =================================
-   13. 초기 화면
-================================= */
-
+/* 초기 층 설정 */
 showFloor("8");
 
-
-/* =================================
-   14. 학번 인증
-================================= */
-
+/* 학번 인증 */
 const authForm=document.getElementById("authForm");
-
 const studentInput=document.getElementById("studentId");
-
 const authError=document.getElementById("authError");
-
 const authScreen=document.getElementById("authScreen");
-
 const safetyApp=document.getElementById("safetyApp");
-
 
 authForm.addEventListener("submit",function(e){
 
@@ -1325,20 +776,13 @@ authForm.addEventListener("submit",function(e){
   const studentId=studentInput.value;
 
   if(!/^[0-9]{10}$/.test(studentId)){
-
-    authError.textContent=
-      "학번은 숫자 10자리로 입력해야 합니다.";
-
+    authError.textContent="학번은 숫자 10자리로 입력해야 합니다.";
     studentInput.focus();
-
     return;
-
   }
 
   authError.textContent="";
-
   authScreen.style.display="none";
-
   safetyApp.style.display="block";
 
 });
