@@ -707,25 +707,17 @@ const deviceInfo = {
 
 
 /* =================================
-   3. GitHub 이미지 경로 자동 설정
+   3. GitHub Pages 이미지 경로 설정
 ================================= */
 
-// GitHub 계정명
-const githubOwner = "SANGEUN428";
+// GitHub Pages에 직접 올라간 이미지 주소 사용
+const PAGE_IMAGE_BASE =
+  "https://sangeun428.github.io/social-education-safety-map/";
 
-// GitHub Pages 주소에서 저장소 이름 자동 추출
-const pathParts = location.pathname.split("/").filter(Boolean);
-
-const repoName =
-  location.hostname.toLowerCase() ===
-  (githubOwner + ".github.io").toLowerCase()
-  ? githubOwner + ".github.io"
-  : pathParts[0];
-
-// GitHub 원본 이미지 주소 생성
+// 이미지 주소 생성
 function getPhotoUrl(filename){
 
-  return `https://raw.githubusercontent.com/${githubOwner}/${repoName}/main/${filename}`;
+  return PAGE_IMAGE_BASE + encodeURIComponent(filename);
 
 }
 
@@ -1122,7 +1114,8 @@ function renderGeneric(f){
 
     <rect class="room"
       x="410" y="82"
-      width="140" height="58">
+      width="140"
+      height="58">
     </rect>
 
     <text class="smalltext"
@@ -1225,7 +1218,7 @@ function openDevice(id){
 
   const photoBox=document.querySelector(".photo");
 
-  // GitHub 원본 저장소에서 이미지 가져오기
+  // GitHub Pages에 직접 올라간 이미지 주소 사용
   const photoUrl=getPhotoUrl(d.photo);
 
   photoBox.innerHTML=`
@@ -1237,7 +1230,7 @@ function openDevice(id){
       onerror="
         this.style.display='none';
         this.parentElement.innerHTML=
-        '<b>사진을 불러오지 못했습니다.<br>GitHub 파일 경로를 확인해 주세요.</b>';
+        '<b>사진을 불러오지 못했습니다.<br>GitHub Pages 이미지 경로를 확인해 주세요.</b>';
       "
     >
 
